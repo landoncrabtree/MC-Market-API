@@ -139,7 +139,7 @@ public class Resources {
         return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/resources/" + resource_id + "/updates/latest", token);
     }
 
-    public static String listUpdateByID(int resource_id, int update_id) {
+    public static String getUpdateByID(int resource_id, int update_id) {
         Token token = Wrapper.token;
         return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/resources/" + resource_id + "/updates/" + update_id, token);
     }
