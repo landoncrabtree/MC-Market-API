@@ -3,9 +3,6 @@
 
 package pw.landon.mcmapi;
 
-import pw.landon.mcmapi.utilities.JSONUtilities;
-import pw.landon.mcmapi.wrappers.Members;
-
 public class Token {
     public String key;
     public TokenType type;
