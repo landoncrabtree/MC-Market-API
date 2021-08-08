@@ -48,96 +48,144 @@ public class Members {
     public static String getUsername(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("username") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("username").getAsString() : null;
     }
 
     public static Integer getID(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("member_id") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("member_id").getAsInt() : null;
     }
 
     public static Long getJoinDate(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("join_date") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("join_date").getAsLong() : null;
     }
 
     public static Long getLastActivityDate(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("last_activity_date") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("last_activity_date").getAsLong() : null;
     }
 
     public static String getGender(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("gender") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("gender").getAsString() : null;
     }
 
     public static String getTimezone(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("timezone") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("timezone").getAsString() : null;
     }
 
     public static Boolean getIsBanned(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("banned") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("banned").getAsBoolean() : null;
     }
 
     public static Boolean getIsSuspended(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("suspended") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("suspended").getAsBoolean() : null;
     }
 
     public static Boolean getIsRestricted(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("restricted") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("restricted").getAsBoolean() : null;
     }
 
     public static Boolean getIsDisabled(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("disabled") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("disabled").getAsBoolean() : null;
     }
 
     public static Integer getPostCount(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("post_count") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("post_count").getAsInt() : null;
     }
 
     public static Integer getResourceCount(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("resource_count") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("resource_count").getAsInt() : null;
     }
 
     public static Integer getPurchaseCount(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("purchase_count") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("purchase_count").getAsInt() : null;
     }
 
     public static Integer getFeedbackPositive(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("feedback_positive") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("feedback_positive").getAsInt() : null;
     }
 
     public static Integer getFeedbackNegative(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("feedback_negative") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("feedback_negative").getAsInt() : null;
     }
 
     public static Integer getFeedbackNeutral(int member_id) {
         String json = Members.getUser(member_id);
         JsonObject result = JSONUtilities.convertStringToJSON(json);
+        if (result.get("data") == null) {
+            return null;
+        }
         return result.get("data").getAsJsonObject().get("feedback_neutral") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("feedback_neutral").getAsInt() : null;
     }
 
