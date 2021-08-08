@@ -3,6 +3,9 @@
 
 package pw.landon.mcmapi;
 
+import pw.landon.mcmapi.utilities.JSONUtilities;
+import pw.landon.mcmapi.wrappers.Members;
+
 public class Token {
     public String key;
     public TokenType type;
@@ -10,10 +13,6 @@ public class Token {
     public Token(String key, TokenType type) {
         this.key = key;
         this.type = type;
-    }
-
-    public String getAge( ) {
-        return key;
     }
 
     public enum TokenType {

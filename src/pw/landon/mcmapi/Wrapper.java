@@ -5,8 +5,6 @@ package pw.landon.mcmapi;
 
 import pw.landon.mcmapi.utilities.HTTPUtils;
 
-import java.net.http.HttpResponse;
-
 public class Wrapper {
     private Wrapper() { }
     public static Token token = null;
@@ -16,8 +14,11 @@ public class Wrapper {
         // Attempt to initialise the API by checking the API token and seeing if it
         // returns 'success' or 'error.' Return this value as a boolean.
         String url = "https://api.mc-market.org/v1/health";
-        HttpResponse<String> response = HTTPUtils.sendGETRequest(url, token);
-        init = !response.body().contains("{\"result\":\"error\"");
+        String response = HTTPUtils.sendGETRequest(url, token);
+        if (response == null) {
+            return init;
+        }
+        init = !response.contains("{\"result\":\"error\"");
         return init;
     }
 }

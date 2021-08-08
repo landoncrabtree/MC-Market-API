@@ -10,7 +10,6 @@ import pw.landon.mcmapi.Token;
 import pw.landon.mcmapi.utilities.HTTPUtils;
 import pw.landon.mcmapi.utilities.JSONUtilities;
 
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,33 +18,31 @@ public class Conversations {
 
     public static final Gson gson = new Gson();
 
-    public static String list() throws Exception {
+    public static String list() {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/conversations", token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/conversations", token);
     }
 
-    public static void start(int recipient_id, String title, String message) throws Exception {
+    public static void start(int recipient_id, String title, String message) {
         Token token = Wrapper.token;
         Map<String, Object> data = new HashMap<>();
         data.put("recipient_id", recipient_id);
         data.put("title", title);
         data.put("message", message);
         JsonObject json = JSONUtilities.convertMapToJSON(data);
-        HttpResponse<String> response = HTTPUtils.sendPOSTRequest("https://api.mc-market.org/v1/conversations", token, json.toString());
+        HTTPUtils.sendPOSTRequest("https://api.mc-market.org/v1/conversations", token, json.toString());
     }
 
-    public static String listReplies(int conversation_id) throws Exception {
+    public static String listReplies(int conversation_id) {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/conversations/" + conversation_id + "/replies", token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/conversations/" + conversation_id + "/replies", token);
     }
 
-    public static void reply(int conversation_id, String message) throws Exception {
+    public static void reply(int conversation_id, String message) {
         Token token = Wrapper.token;
         Map<String, Object> data = new HashMap<>();
         data.put("message", message);
         JsonObject json = JSONUtilities.convertMapToJSON(data);
-        HttpResponse<String> response = HTTPUtils.sendPOSTRequest("https://api.mc-market.org/v1/conversations/" + conversation_id + "/replies", token, json.toString());
+        HTTPUtils.sendPOSTRequest("https://api.mc-market.org/v1/conversations/" + conversation_id + "/replies", token, json.toString());
     }
 }

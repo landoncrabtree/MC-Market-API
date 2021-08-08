@@ -5,6 +5,7 @@ package pw.landon.mcmapi.utilities;
 
 import pw.landon.mcmapi.Token;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,7 +13,7 @@ import java.net.http.HttpResponse;
 
 public class HTTPUtils {
     private HTTPUtils() { }
-    public static HttpResponse<String> sendGETRequest(String url, Token token) throws Exception {
+    public static String sendGETRequest(String url, Token token){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -20,10 +21,16 @@ public class HTTPUtils {
                 .header("Authorization", token.type.asString() + " " + token.key)
                 .header("Content-Type", "application/json")
                 .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            return null;
+        }
     }
 
-    public static HttpResponse<String> sendPATCHRequest(String url, Token token, String parameters) throws Exception {
+    public static String sendPATCHRequest(String url, Token token, String parameters) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -31,10 +38,16 @@ public class HTTPUtils {
                 .header("Authorization", token.type.asString() + " " + token.key)
                 .header("Content-Type", "application/json")
                 .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            return null;
+        }
     }
 
-    public static HttpResponse<String> sendPOSTRequest(String url, Token token, String parameters) throws Exception {
+    public static String sendPOSTRequest(String url, Token token, String parameters) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -42,10 +55,16 @@ public class HTTPUtils {
                 .header("Authorization", token.type.asString() + " " + token.key)
                 .header("Content-Type", "application/json")
                 .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            return null;
+        }
     }
 
-    public static HttpResponse<String> sendDELETERequest(String url, Token token) throws Exception {
+    public static String sendDELETERequest(String url, Token token) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -53,7 +72,13 @@ public class HTTPUtils {
                 .header("Authorization", token.type.asString() + " " + token.key)
                 .header("Content-Type", "application/json")
                 .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            return null;
+        }
     }
 
 

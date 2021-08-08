@@ -4,13 +4,13 @@
 package pw.landon.mcmapi.wrappers;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import pw.landon.mcmapi.Wrapper;
 import pw.landon.mcmapi.Token;
 import pw.landon.mcmapi.utilities.HTTPUtils;
 import pw.landon.mcmapi.utilities.JSONUtilities;
 
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +19,12 @@ public class Members {
 
     public static final Gson gson = new Gson();
 
-    public static String getSelf() throws Exception {
+    public static String self() {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/self", token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/self", token);
     }
 
-    public static void modifySelf(String custom_title, String about_me, String signature) throws Exception {
+    public static void modifySelf(String custom_title, String about_me, String signature) {
         Token token = Wrapper.token;
         Map<String, Object> data = new HashMap<>();
         if (custom_title != null) {
@@ -38,123 +37,135 @@ public class Members {
             data.put("signature", signature);
         }
         JsonObject json = JSONUtilities.convertMapToJSON(data);
-        HttpResponse<String> response = HTTPUtils.sendPATCHRequest("https://api.mc-market.org/v1/members/self", token, json.toString());
+        HTTPUtils.sendPATCHRequest("https://api.mc-market.org/v1/members/self", token, json.toString());
     }
 
-    public static String getUser(int member_id) throws Exception {
+    public static String getUser(int member_id) {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/" + member_id, token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/" + member_id, token);
     }
 
-    public static String getUsername(int member_id) throws Exception {
+    public static String getUsername(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("username").getAsString();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("username") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("username").getAsString() : null;
     }
 
-    public static int getID(int member_id) throws Exception {
+    public static Integer getID(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("member_id").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("member_id") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("member_id").getAsInt() : null;
     }
 
-    public static long getJoinDate(int member_id) throws Exception {
+    public static Long getJoinDate(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("join_date").getAsLong();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("join_date") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("join_date").getAsLong() : null;
     }
 
-    public static long getLastActivityDate(int member_id) throws Exception {
+    public static Long getLastActivityDate(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("last_activity_date").getAsLong();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("last_activity_date") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("last_activity_date").getAsLong() : null;
     }
 
-    public static String getGender(int member_id) throws Exception {
+    public static String getGender(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("gender").getAsString();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("gender") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("gender").getAsString() : null;
     }
 
-    public static String getTimezone(int member_id) throws Exception {
+    public static String getTimezone(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("timezone").getAsString();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("timezone") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("timezone").getAsString() : null;
     }
 
-    public static boolean getIsBanned(int member_id) throws Exception {
+    public static Boolean getIsBanned(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("banned").getAsBoolean();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("banned") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("banned").getAsBoolean() : null;
     }
 
-    public static boolean getIsSuspended(int member_id) throws Exception {
+    public static Boolean getIsSuspended(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("suspended").getAsBoolean();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("suspended") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("suspended").getAsBoolean() : null;
     }
 
-    public static boolean getIsRestricted(int member_id) throws Exception {
+    public static Boolean getIsRestricted(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("restricted").getAsBoolean();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("restricted") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("restricted").getAsBoolean() : null;
     }
 
-    public static boolean getIsDisabled(int member_id) throws Exception {
+    public static Boolean getIsDisabled(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("disabled").getAsBoolean();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("disabled") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("disabled").getAsBoolean() : null;
     }
 
-    public static int getPostCount(int member_id) throws Exception {
+    public static Integer getPostCount(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("post_count").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("post_count") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("post_count").getAsInt() : null;
     }
 
-    public static int getResourceCount(int member_id) throws Exception {
+    public static Integer getResourceCount(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("resource_count").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("resource_count") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("resource_count").getAsInt() : null;
     }
 
-    public static int getPurchaseCount(int member_id) throws Exception {
+    public static Integer getPurchaseCount(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("purchase_count").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("purchase_count") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("purchase_count").getAsInt() : null;
     }
 
-    public static int getFeedbackPositive(int member_id) throws Exception {
+    public static Integer getFeedbackPositive(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("feedback_positive").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("feedback_positive") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("feedback_positive").getAsInt() : null;
     }
 
-    public static int getFeedbackNegative(int member_id) throws Exception {
+    public static Integer getFeedbackNegative(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("feedback_negative").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("feedback_negative") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("feedback_negative").getAsInt() : null;
     }
 
-    public static int getFeedbackNeutral(int member_id) throws Exception {
+    public static Integer getFeedbackNeutral(int member_id) {
         String json = Members.getUser(member_id);
-        return JSONUtilities.convertStringToJSON(json).get("data").getAsJsonObject().get("feedback_neutral").getAsInt();
+        JsonObject result = JSONUtilities.convertStringToJSON(json);
+        return result.get("data").getAsJsonObject().get("feedback_neutral") != JsonNull.INSTANCE ? result.get("data").getAsJsonObject().get("feedback_neutral").getAsInt() : null;
     }
 
-    public static String listBans() throws Exception {
+    public static String listBans() {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/bans", token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/bans", token);
     }
 
-    public static String listProfilePosts() throws Exception {
+    public static String listProfilePosts() {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/self/profile-posts", token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/self/profile-posts", token);
     }
 
-    public static String getProfilePost(int post_id) throws Exception {
+    public static String getProfilePost(int post_id) {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/self/profile-posts/" + post_id, token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/members/self/profile-posts/" + post_id, token);
     }
 
-    public static void editProfilePost(int post_id, String message) throws Exception {
+    public static void editProfilePost(int post_id, String message) {
         Token token = Wrapper.token;
         Map<String, Object> data = new HashMap<>();
         data.put("message", message);
         JsonObject json = JSONUtilities.convertMapToJSON(data);
-        HttpResponse<String> response = HTTPUtils.sendPATCHRequest("https://api.mc-market.org/v1/members/self/profile-posts/" + post_id, token, json.toString());
+        HTTPUtils.sendPATCHRequest("https://api.mc-market.org/v1/members/self/profile-posts/" + post_id, token, json.toString());
     }
 
-    public static void deleteProfilePost(int post_id) throws Exception {
+    public static void deleteProfilePost(int post_id) {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendDELETERequest("https://api.mc-market.org/v1/members/self/profile-posts/" + post_id, token);
+        HTTPUtils.sendDELETERequest("https://api.mc-market.org/v1/members/self/profile-posts/" + post_id, token);
     }
 }

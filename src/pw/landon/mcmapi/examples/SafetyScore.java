@@ -3,22 +3,13 @@
 
 package pw.landon.mcmapi.examples;
 
-import com.google.gson.*;
-import pw.landon.mcmapi.utilities.JSONUtilities;
-import pw.landon.mcmapi.wrappers.Conversations;
-import pw.landon.mcmapi.wrappers.Members;
-import pw.landon.mcmapi.wrappers.Resources;
+import pw.landon.mcmapi.objects.Member;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class SafetyScore {
 
@@ -43,19 +34,19 @@ public class SafetyScore {
         You should still take risk prevention measures when dealing with users.
         ALWAYS use a reputable middleman.""";
 
-    public static void calculate(int member_id) throws Exception {
-        String username = Members.getUsername(member_id);
-        int posFeedback = Members.getFeedbackPositive(member_id);
-        int negFeedback = Members.getFeedbackNegative(member_id);
+    public static void calculate(Member member) {
+        String username = member.username;
+        int posFeedback = member.posRep;
+        int negFeedback = member.negRep;
         double posRate = 100 - ((double) negFeedback / (double) posFeedback);
-        Date date = new Date(Members.getJoinDate(member_id) * 1000);
+        Date date = new Date(member.joinDate * 1000);
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         format.setTimeZone(TimeZone.getTimeZone("CST"));
         String dateString = format.format(date);
         int joinYear = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(date)).getYear();
-        int posts = Members.getPostCount(member_id);
-        boolean suspended = Members.getIsSuspended(member_id);
-        boolean banned = Members.getIsBanned(member_id);
+        int posts = member.posts;
+        boolean suspended = member.isSuspended;
+        boolean banned = member.isBanned;
         int safetyScore = 0;
 
         if (posFeedback >= 200) {

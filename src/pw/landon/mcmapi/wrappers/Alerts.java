@@ -10,7 +10,6 @@ import pw.landon.mcmapi.Token;
 import pw.landon.mcmapi.utilities.HTTPUtils;
 import pw.landon.mcmapi.utilities.JSONUtilities;
 
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,17 +18,16 @@ public class Alerts {
 
     public static final Gson gson = new Gson();
 
-    public static String list() throws Exception {
+    public static String list() {
         Token token = Wrapper.token;
-        HttpResponse<String> response = HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/alerts", token);
-        return response.body();
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/alerts", token);
     }
 
-    public static void markAsRead() throws Exception {
+    public static void markAsRead() {
         Token token = Wrapper.token;
         Map<String, Object> data = new HashMap<>();
         data.put("read", true);
         JsonObject json = JSONUtilities.convertMapToJSON(data);
-        HttpResponse<String> response = HTTPUtils.sendPATCHRequest("https://api.mc-market.org/v1/alerts", token, json.toString());
+        HTTPUtils.sendPATCHRequest("https://api.mc-market.org/v1/alerts", token, json.toString());
     }
 }
