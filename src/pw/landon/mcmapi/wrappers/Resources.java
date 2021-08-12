@@ -156,7 +156,7 @@ public class Resources {
 
     public static String getVersionByID(int resource_id, int version_id) {
         Token token = Wrapper.token;
-        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/resources/" + resource_id + "/downloads/versions/" + version_id, token);
+        return HTTPUtils.sendGETRequest("https://api.mc-market.org/v1/resources/" + resource_id + "/versions/" + version_id, token);
     }
 
     public static Integer getLatestVersionID(int resource_id) {
